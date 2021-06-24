@@ -1,0 +1,44 @@
+@import 'base'; //CUIDADO COM A ORDEM DE IMPORTAÇÃO!
+
+$text-color: white;
+$color-danger: red;
+$color-alert: yellow;
+$neutral-color: #3b3b3b;
+
+//Criando funções
+@mixin boxShadow($color) { 
+    box-shadow: 3px 3px 4px 1px $color;   
+}
+@mixin textEffect($valor) {
+    @if $valor == danger {
+        color: $color-danger;
+        font-weight: bold;
+    } @else if $valor == alert {
+        color: $color-alert;
+    } @else {
+        color: $neutral-color;
+    }
+}
+body{
+    background-color: rgb(90, 155, 252);
+    color: $text-color;
+}
+
+.container{
+    @include boxShadow(rgba(0,0,0,0.6));
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    $text-color2: blue; //ATENÇÃO com o SCOPO da VARIÁVEL!
+    p{
+        color: $text-color2;
+        @include textEffect(danger); //TRUE or FALSE
+    }
+}
+
+// REPETIÇÕES
+@for $i from 1 through 5 {
+    .text#{$i} {
+        font-size: 15px * $i;
+    }
+}
